@@ -8,37 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class Main {
-
-    public static void main(String[] args) {
-        String input = "SKIPwarszawa;oc;zdrowotne\n"
-                + "bielsko-biała;na życie ;od powodzi\n"
-                + "łódź;  od ognia;OD NIESZCZĘŚLIWYCH WYPADKÓW;ac\n\n"
-                + "  ŁÓDŹ;domu;na wypadek straty pracy;Ac";
-
-        Map<String, String[]> expectedOutput = Map.of("łódź",
-                new String[] { "od ognia", "od nieszczęśliwych wypadków", "ac", "domu", "na wypadek straty pracy" }, "bielsko-biała",
-                new String[] { "na życie", "od powodzi" });
-
-        InputStream inputStream = new java.io.ByteArrayInputStream(input.getBytes());
-        InsuranceServiceGrouping grouping = new InsuranceServiceGrouping();
-        Map<String, String[]> output = grouping.processFile(inputStream);
-
-        //proste testy
-        boolean b=(output.size()==expectedOutput.size());
-        boolean a =(output.entrySet().stream().allMatch(e -> {
-            String[] expectedOutputArray = expectedOutput.get(e.getKey());
-            if (expectedOutputArray == null) {
-                return false;
-            }
-            String[] outputArray = e.getValue();
-            java.util.Arrays.sort(outputArray);
-            java.util.Arrays.sort(expectedOutputArray);
-            return java.util.Arrays.equals(outputArray, expectedOutputArray);
-        }));
-        System.out.println(a+" "+b);
-    }
-}
 //       1.każde miasto i usługa były pozbawione pustych znaków z przodu i z tyłu
 //       2.prawidłowo grupował usługi nawet jeśli ich definicje powtarzają się w kilku linijkach i są pisane literami różnej wielkości (sprowadzał nazwy usług i miast do małych liter)
 //       3.usuwał duplikaty usług w ramach jednego miasta, nawet jeśli są one pisane literami różnej wielkości
