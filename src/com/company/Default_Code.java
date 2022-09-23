@@ -8,6 +8,13 @@ import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+//       1.każde miasto i usługa były pozbawione pustych znaków z przodu i z tyłu
+//       2.prawidłowo grupował usługi nawet jeśli ich definicje powtarzają się w kilku linijkach i są pisane literami różnej wielkości (sprowadzał nazwy usług i miast do małych liter)
+//       3.usuwał duplikaty usług w ramach jednego miasta, nawet jeśli są one pisane literami różnej wielkości
+//       4.ignorował puste linie
+//       5.ignorował linie które zaczynają się od słowa SKIP
+//       6.działał zgodnie z przykładem
+
 public class Default_Code {
     public static void main(String[] args) throws IOException {
         String input = "SKIPwarszawa;oc;zdrowotne\n"
